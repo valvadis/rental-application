@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace Application;
+namespace Rental;
 
 use Laminas\Router\Http\Literal;
 use Laminas\Router\Http\Segment;

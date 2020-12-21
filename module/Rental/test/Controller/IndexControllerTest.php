@@ -8,9 +8,9 @@
 
 declare(strict_types=1);
 
-namespace ApplicationTest\Controller;
+namespace RentalTest\Controller;
 
-use Application\Controller\IndexController;
+use Rental\Controller\IndexController;
 use Laminas\Stdlib\ArrayUtils;
 use Laminas\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 

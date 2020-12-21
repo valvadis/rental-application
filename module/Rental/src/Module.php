@@ -8,15 +8,12 @@
 
 declare(strict_types=1);
 
-namespace Application\Controller;
+namespace Rental;
 
-use Laminas\Mvc\Controller\AbstractActionController;
-use Laminas\View\Model\ViewModel;
-
-class IndexController extends AbstractActionController
+class Module
 {
-    public function indexAction()
+    public function getConfig() : array
     {
-        return new ViewModel();
+        return include __DIR__ . '/../config/module.config.php';
     }
 }

@@ -2,13 +2,41 @@
 
 namespace Rental\Domain;
 
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Embeddable
+ */
 class Address
 {
+    /**
+     * @ORM\Column(type="string")
+     */
     private string $street;
+
+    /**
+     * @ORM\Column(type="string")
+     */
     private string $postalCode;
+
+    /**
+     * @ORM\Column(type="string")
+     */
     private string $houseNumber;
+
+    /**
+     * @ORM\Column(type="string")
+     */
     private string $apartmentNumber;
+
+    /**
+     * @ORM\Column(type="string")
+     */
     private string $city;
+
+    /**
+     * @ORM\Column(type="string")
+     */
     private string $country;
 
     public function __construct(

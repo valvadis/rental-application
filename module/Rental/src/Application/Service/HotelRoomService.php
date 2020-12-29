@@ -7,7 +7,12 @@ use Rental\Domain\Hotel\HotelRoomFactory;
 
 class HotelRoomService
 {
-    private HotelRoomRepository $hotelRepository;
+    private HotelRoomRepository $hotelRoomRepository;
+
+    public function __construct(HotelRoomRepository $hotelRoomRepository)
+    {
+        $this->hotelRoomRepository = $hotelRoomRepository;
+    }
 
     public function add(
         string $hotelId,
@@ -22,6 +27,6 @@ class HotelRoomService
             $spaces
         );
 
-        $this->hotelRepository->save($hotelRoom);
+        $this->hotelRoomRepository->save($hotelRoom);
     }
 }

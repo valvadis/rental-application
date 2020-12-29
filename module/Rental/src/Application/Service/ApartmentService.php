@@ -9,6 +9,11 @@ class ApartmentService
 {
     private ApartmentRepository $apartmentRepository;
 
+    public function __construct(ApartmentRepository $apartmentRepository)
+    {
+        $this->apartmentRepository = $apartmentRepository;
+    }
+
     public function add(
         string $ownerId,
         string $street,

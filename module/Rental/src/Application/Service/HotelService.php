@@ -9,6 +9,11 @@ class HotelService
 {
     private HotelRepository $hotelRepository;
 
+    public function __construct(HotelRepository $hotelRepository)
+    {
+        $this->hotelRepository = $hotelRepository;
+    }
+
     public function add(
         string $name,
         string $street,

@@ -1,8 +1,8 @@
 <?php
 
-namespace Rental\Domain\Factory;
+namespace Rental\Domain\Apartment;
 
-use Rental\Domain\Entity;
+use Rental\Domain\Address;
 
 class ApartmentFactory
 {
@@ -16,11 +16,12 @@ class ApartmentFactory
         string $country,
         string $description,
         array $rooms
-    ): Entity\Apartment {
-        $address = new Entity\Address($street, $postalCode, $houseNumber, $apartmentNumber, $city, $country);
+    ): Apartment {
+        $address = new Address($street, $postalCode, $houseNumber, $apartmentNumber, $city, $country);
         $rooms = array_map(function (string $name, float $size) {
-            return new Entity\ApartmentRoom($name, $size);
+            return new ApartmentRoom($name, $size);
         }, $rooms);
-        return new Entity\Apartment($ownerId, $address, $description, $rooms);
+
+        return new Apartment($ownerId, $address, $description, $rooms);
     }
 }

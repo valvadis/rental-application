@@ -1,8 +1,6 @@
 <?php
 
-namespace Rental\Domain\Factory;
-
-use Rental\Domain\Entity;
+namespace Rental\Domain\Hotel;
 
 class HotelRoomFactory
 {
@@ -11,10 +9,11 @@ class HotelRoomFactory
         int $number,
         string $description,
         array $spaces
-    ): Entity\HotelRoom {
+    ): HotelRoom {
         $spaces = array_map(function ($name, $length) {
-            return new Entity\Space($name, $length);
+            return new Space($name, $length);
         }, $spaces);
-        return new Entity\HotelRoom($hotelId, $number, $description, $spaces);
+
+        return new HotelRoom($hotelId, $number, $description, $spaces);
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
-namespace Rental\Domain\Entity;
+namespace Rental\Domain\Hotel;
+
+use Rental\Domain\Address;
 
 class Hotel
 {

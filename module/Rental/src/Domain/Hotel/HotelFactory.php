@@ -1,8 +1,8 @@
 <?php
 
-namespace Rental\Domain\Factory;
+namespace Rental\Domain\Hotel;
 
-use Rental\Domain\Entity;
+use Rental\Domain\Address;
 
 class HotelFactory
 {
@@ -14,8 +14,9 @@ class HotelFactory
         string $apartmentNumber,
         string $city,
         string $country
-    ): Entity\Hotel {
-        $address = new Entity\Address($street, $postalCode, $houseNumber, $apartmentNumber, $city, $country);
-        return new Entity\Hotel($name, $address);
+    ): Hotel {
+        $address = new Address($street, $postalCode, $houseNumber, $apartmentNumber, $city, $country);
+
+        return new Hotel($name, $address);
     }
 }

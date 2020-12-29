@@ -60,4 +60,20 @@ return [
             __DIR__ . '/../view',
         ],
     ],
+    'doctrine' => [
+        'driver' => [
+            __NAMESPACE__ . '_driver' => [
+                'class' => \Doctrine\ORM\Mapping\Driver\AnnotationDriver::class,
+                'cache' => 'array',
+                'paths' => [
+                    __DIR__ . '/../src/Domain'
+                ]
+            ],
+            'orm_default' => [
+                'drivers' => [
+                    __NAMESPACE__ . '\Domain' => __NAMESPACE__ . '_driver'
+                ],
+            ],
+        ],
+    ]
 ];

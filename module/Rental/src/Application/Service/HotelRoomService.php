@@ -2,10 +2,13 @@
 
 namespace Rental\Application\Service;
 
-use Rental\Domain\Factory\HotelRoomFactory;
+use Rental\Domain\Hotel\HotelRoomRepository;
+use Rental\Domain\Hotel\HotelRoomFactory;
 
 class HotelRoomService
 {
+    private HotelRoomRepository $hotelRepository;
+
     public function add(
         string $hotelId,
         int $number,
@@ -18,5 +21,7 @@ class HotelRoomService
             $description,
             $spaces
         );
+
+        $this->hotelRepository->save($hotelRoom);
     }
 }

@@ -2,10 +2,13 @@
 
 namespace Rental\Application\Service;
 
-use Rental\Domain\Factory\ApartmentFactory;
+use Rental\Domain\Apartment\ApartmentFactory;
+use Rental\Domain\Apartment\ApartmentRepository;
 
 class ApartmentService
 {
+    private ApartmentRepository $apartmentRepository;
+
     public function add(
         string $ownerId,
         string $street,
@@ -28,5 +31,7 @@ class ApartmentService
             $description,
             $rooms
         );
+
+        $this->apartmentRepository->save($apartment);
     }
 }

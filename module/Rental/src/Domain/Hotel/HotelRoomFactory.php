@@ -2,18 +2,20 @@
 
 namespace Rental\Domain\Hotel;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class HotelRoomFactory
 {
     public function create(
-        string $hotelId,
+        Hotel $hotel,
         int $number,
         string $description,
         array $spaces
     ): HotelRoom {
-        $spaces = array_map(function ($name, $length) {
-            return new Space($name, $length);
+        $spaces = array_map(function (object $space) {
+            return new Space($space->name, $space->length);
         }, $spaces);
 
-        return new HotelRoom($hotelId, $number, $description, $spaces);
+        return new HotelRoom($hotel, $number, $description, new ArrayCollection($spaces));
     }
 }

@@ -34,7 +34,7 @@ class Apartment
     private string $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="ApartmentRoom", mappedBy="apartment")
+     * @ORM\OneToMany(targetEntity="ApartmentRoom", mappedBy="apartment", cascade="persist")
      */
     private Collection $rooms;
 
@@ -44,5 +44,10 @@ class Apartment
         $this->address = $address;
         $this->description = $description;
         $this->rooms = $rooms;
+    }
+
+    public function getRooms(): Collection
+    {
+        return $this->rooms;
     }
 }

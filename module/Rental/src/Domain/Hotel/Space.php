@@ -19,7 +19,7 @@ class Space
     /**
      * @ORM\ManyToOne(targetEntity="HotelRoom", inversedBy="spaces")
      */
-    private string $hotelRoom;
+    private HotelRoom $hotelRoom;
 
     /**
      * @ORM\Column(type="string")
@@ -35,5 +35,10 @@ class Space
     {
         $this->name = $name;
         $this->length = $length;
+    }
+
+    public function setHotelRoom(HotelRoom $hotelRoom): void
+    {
+        $this->hotelRoom = $hotelRoom;
     }
 }

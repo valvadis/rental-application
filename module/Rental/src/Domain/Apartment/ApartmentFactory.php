@@ -2,6 +2,7 @@
 
 namespace Rental\Domain\Apartment;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Rental\Domain\Address;
 
 class ApartmentFactory
@@ -18,10 +19,10 @@ class ApartmentFactory
         array $rooms
     ): Apartment {
         $address = new Address($street, $postalCode, $houseNumber, $apartmentNumber, $city, $country);
-        $rooms = array_map(function (string $name, float $size) {
-            return new ApartmentRoom($name, $size);
+        $rooms = array_map(function (object $room) {
+            return new ApartmentRoom($room->name, $room->size);
         }, $rooms);
 
-        return new Apartment($ownerId, $address, $description, $rooms);
+        return new Apartment($ownerId, $address, $description, new ArrayCollection($rooms));
     }
 }

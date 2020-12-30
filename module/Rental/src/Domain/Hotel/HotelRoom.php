@@ -33,7 +33,7 @@ class HotelRoom
     private string $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="Space", mappedBy="hotelRoom")
+     * @ORM\OneToMany(targetEntity="Space", mappedBy="hotelRoom", cascade="persist")
     */
     private Collection $spaces;
 
@@ -43,5 +43,10 @@ class HotelRoom
         $this->number = $number;
         $this->description = $description;
         $this->spaces = $spaces;
+    }
+
+    public function getSpaces(): Collection
+    {
+        return $this->spaces;
     }
 }

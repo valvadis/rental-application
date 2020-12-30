@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Embedded
  */
 class ApartmentRoom
 {
@@ -36,5 +35,10 @@ class ApartmentRoom
     {
         $this->name = $name;
         $this->size = $size;
+    }
+
+    public function setApartment(Apartment $apartment): void
+    {
+        $this->apartment = $apartment;
     }
 }

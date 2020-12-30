@@ -2,6 +2,7 @@
 
 namespace Rental\Application\Service;
 
+use Rental\Domain\Hotel\HotelRepository;
 use Rental\Domain\Hotel\HotelRoomRepository;
 use Rental\Domain\Hotel\HotelRoomFactory;
 
@@ -9,9 +10,12 @@ class HotelRoomService
 {
     private HotelRoomRepository $hotelRoomRepository;
 
-    public function __construct(HotelRoomRepository $hotelRoomRepository)
+    private HotelRepository $hotelRepository;
+
+    public function __construct(HotelRoomRepository $hotelRoomRepository, HotelRepository $hotelRepository)
     {
         $this->hotelRoomRepository = $hotelRoomRepository;
+        $this->hotelRepository = $hotelRepository;
     }
 
     public function add(
@@ -20,8 +24,9 @@ class HotelRoomService
         string $description,
         array $spaces
     ): void {
+        $hotel = $this->hotelRepository->findOneById($hotelId);
         $hotelRoom = (new HotelRoomFactory)->create(
-            $hotelId,
+            $hotel,
             $number,
             $description,
             $spaces

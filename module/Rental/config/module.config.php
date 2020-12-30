@@ -6,12 +6,10 @@
  * @license   https://github.com/laminas/laminas-mvc-skeleton/blob/master/LICENSE.md New BSD License
  */
 
-declare(strict_types=1);
-
 namespace Rental;
 
 use Laminas\Router\Http\Literal;
-use Laminas\Router\Http\Segment;
+use Laminas\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
@@ -22,18 +20,35 @@ return [
                 'options' => [
                     'route'    => '/',
                     'defaults' => [
-                        'controller' => Controller\IndexController::class,
-                        'action'     => 'index',
+                        'controller' => Infrastructure\Controller\DocumentationController::class,
+                        'action' => 'index'
                     ],
                 ],
             ],
-            'application' => [
-                'type'    => Segment::class,
+            'apartment' => [
+                'type'    => Literal::class,
                 'options' => [
-                    'route'    => '/application[/:action]',
+                    'route'    => '/apartment',
                     'defaults' => [
-                        'controller' => Controller\IndexController::class,
-                        'action'     => 'index',
+                        'controller' => Infrastructure\Controller\ApartmentController::class
+                    ],
+                ],
+            ],
+            'hotel' => [
+                'type'    => Literal::class,
+                'options' => [
+                    'route'    => '/hotel',
+                    'defaults' => [
+                        'controller' => Infrastructure\Controller\HotelController::class
+                    ],
+                ],
+            ],
+            'hotel-room' => [
+                'type'    => Literal::class,
+                'options' => [
+                    'route'    => '/hotel-room',
+                    'defaults' => [
+                        'controller' => Infrastructure\Controller\HotelRoomController::class
                     ],
                 ],
             ],
@@ -41,8 +56,18 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => InvokableFactory::class,
+            Infrastructure\Controller\ApartmentController::class => ReflectionBasedAbstractFactory::class,
+            Infrastructure\Controller\HotelController::class => ReflectionBasedAbstractFactory::class,
+            Infrastructure\Controller\HotelRoomController::class => ReflectionBasedAbstractFactory::class,
+            Infrastructure\Controller\DocumentationController::class => InvokableFactory::class,
         ],
+    ],
+    'service_manager' => [
+        'factories' => [
+            Application\Service\ApartmentService::class => Infrastructure\Factory\ApartmentServiceFactory::class,
+            Application\Service\HotelService::class => Infrastructure\Factory\HotelServiceFactory::class,
+            Application\Service\HotelRoomService::class => Infrastructure\Factory\HotelRoomServiceFactory::class,
+        ]
     ],
     'view_manager' => [
         'display_not_found_reason' => true,
@@ -52,13 +77,15 @@ return [
         'exception_template'       => 'error/index',
         'template_map' => [
             'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
-            'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ],
         'template_path_stack' => [
             __DIR__ . '/../view',
         ],
+        'strategies' => [
+            'ViewJsonStrategy'
+        ]
     ],
     'doctrine' => [
         'driver' => [

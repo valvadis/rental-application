@@ -13,4 +13,9 @@ class HotelRepository extends EntityRepository implements HotelRepositoryInterfa
         $this->getEntityManager()->persist($hotel);
         $this->getEntityManager()->flush();
     }
+
+    public function findOneById(string $id): Hotel
+    {
+        return parent::findOneById($id);
+    }
 }

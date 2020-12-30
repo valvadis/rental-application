@@ -6,8 +6,6 @@
  * @license   https://github.com/laminas/laminas-mvc-skeleton/blob/master/LICENSE.md New BSD License
  */
 
-declare(strict_types=1);
-
 namespace Rental;
 
 class Module

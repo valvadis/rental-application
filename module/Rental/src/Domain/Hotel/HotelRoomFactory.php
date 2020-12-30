@@ -12,8 +12,8 @@ class HotelRoomFactory
         string $description,
         array $spaces
     ): HotelRoom {
-        $spaces = array_map(function (object $space) {
-            return new Space($space->name, $space->length);
+        $spaces = array_map(function (array $space) {
+            return new Space($space['name'], $space['length']);
         }, $spaces);
 
         return new HotelRoom($hotel, $number, $description, new ArrayCollection($spaces));

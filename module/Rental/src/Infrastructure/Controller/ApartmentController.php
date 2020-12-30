@@ -19,18 +19,18 @@ class ApartmentController extends AbstractRestfulController
     public function create($data): JsonModel
     {
         $content = $this->getRequest()->getContent();
-        $data = Json::decode($content, Json::TYPE_OBJECT);
+        $data = Json::decode($content, Json::TYPE_ARRAY);
 
         $this->apartmentService->add(
-            $data->ownerId,
-            $data->street,
-            $data->postalCode,
-            $data->houseNumber,
-            $data->apartmentNumber,
-            $data->city,
-            $data->country,
-            $data->description,
-            $data->rooms
+            $data['ownerId'],
+            $data['street'],
+            $data['postalCode'],
+            $data['houseNumber'],
+            $data['apartmentNumber'],
+            $data['city'],
+            $data['country'],
+            $data['description'],
+            $data['rooms']
         );
 
         return new JsonModel([

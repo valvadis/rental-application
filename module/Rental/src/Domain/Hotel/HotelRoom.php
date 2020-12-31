@@ -4,9 +4,6 @@ namespace Rental\Domain\Hotel;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Rental\Domain\Apartment\ApartmentBooked;
-use Rental\Domain\Apartment\HotelRoomBooked;
-use Rental\Domain\Period;
 
 /**
  * @ORM\Entity(repositoryClass="Rental\Infrastructure\Repository\HotelRoomRepository")
@@ -51,14 +48,5 @@ class HotelRoom
     public function getSpaces(): Collection
     {
         return $this->spaces;
-    }
-
-    public function book(string $tenantId, Period $period): HotelRoomBooked
-    {
-        return HotelRoomBooked::create(
-            $tenantId,
-            $this->hotel->getId(),
-            $period
-        );
     }
 }

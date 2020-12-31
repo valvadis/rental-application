@@ -36,14 +36,4 @@ class HotelRoomService
 
         $this->hotelRoomRepository->save($hotelRoom);
     }
-
-    public function book(string $id, string $tenantId, string $start, string $end): ApartmentBooked
-    {
-        $hotelRoom = $this->hotelRoomRepository->findOneById($id);
-        $start = new \DateTime($start);
-        $end = new \DateTime($end);
-        $period = new Period($start, $end);
-
-        return $hotelRoom->book($tenantId, $period);
-    }
 }

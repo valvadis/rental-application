@@ -41,14 +41,4 @@ class ApartmentService
 
         $this->apartmentRepository->save($apartment);
     }
-
-    public function book(string $id, string $tenantId, string $start, string $end): ApartmentBooked
-    {
-        $apartment = $this->apartmentRepository->findOneById($id);
-        $start = new \DateTime($start);
-        $end = new \DateTime($end);
-        $period = new Period($start, $end);
-
-        return $apartment->book($tenantId, $period);
-    }
 }

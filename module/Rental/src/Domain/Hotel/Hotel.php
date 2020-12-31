@@ -32,4 +32,9 @@ class Hotel
         $this->name = $name;
         $this->address = $address;
     }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
 }

@@ -16,6 +16,10 @@ class HotelRepository extends EntityRepository implements HotelRepositoryInterfa
 
     public function findOneById(string $id): Hotel
     {
-        return parent::findOneById($id);
+        $queryBuilder = $this->createQueryBuilder('h')
+            ->where('h.id = :id')
+            ->setParameter('id', $id);
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
     }
 }

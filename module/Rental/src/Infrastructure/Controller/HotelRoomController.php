@@ -18,15 +18,25 @@ class HotelRoomController extends AbstractRestfulController
 
     public function create($data): JsonModel
     {
-        $content = $this->getRequest()->getContent();
-        $data = Json::decode($content, Json::TYPE_ARRAY);
-
         $this->hotelRoomService->add(
             $data['hotelId'],
             $data['number'],
             $data['description'],
             $data['spaces']
         );
+
+        return new JsonModel([
+            'status' => 'OK'
+        ]);
+    }
+
+    public function bookAction(): JsonModel
+    {
+        $id = $this->params()->fromRoute('id');
+        $data = Json::decode($this->getRequest()->getContent(), Json::TYPE_ARRAY);
+
+        $apartmentBooked = $this->hotelRoomService->book($id, $data['tenantId'], $data['start'], $data['end']);
+        $this->getEventManager()->trigger('apartmentBooked', $this, $apartmentBooked);
 
         return new JsonModel([
             'status' => 'OK'

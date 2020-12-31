@@ -19,4 +19,13 @@ class ApartmentRepository extends EntityRepository implements ApartmentRepositor
         $this->getEntityManager()->persist($apartment);
         $this->getEntityManager()->flush();
     }
+
+    public function findOneById(string $id): Apartment
+    {
+        $queryBuilder = $this->createQueryBuilder('a')
+            ->where('a.id = :id')
+            ->setParameter('id', $id);
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
+    }
 }

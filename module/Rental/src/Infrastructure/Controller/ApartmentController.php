@@ -18,9 +18,6 @@ class ApartmentController extends AbstractRestfulController
 
     public function create($data): JsonModel
     {
-        $content = $this->getRequest()->getContent();
-        $data = Json::decode($content, Json::TYPE_ARRAY);
-
         $this->apartmentService->add(
             $data['ownerId'],
             $data['street'],
@@ -32,6 +29,19 @@ class ApartmentController extends AbstractRestfulController
             $data['description'],
             $data['rooms']
         );
+
+        return new JsonModel([
+            'status' => 'OK'
+        ]);
+    }
+
+    public function bookAction(): JsonModel
+    {
+        $id = $this->params()->fromRoute('id');
+        $data = Json::decode($this->getRequest()->getContent(), Json::TYPE_ARRAY);
+
+        $apartmentBooked = $this->apartmentService->book($id, $data['tenantId'], $data['start'], $data['end']);
+        $this->getEventManager()->trigger('apartmentBooked', $this, $apartmentBooked);
 
         return new JsonModel([
             'status' => 'OK'

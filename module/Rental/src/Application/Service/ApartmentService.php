@@ -2,8 +2,10 @@
 
 namespace Rental\Application\Service;
 
+use Rental\Domain\Apartment\ApartmentBooked;
 use Rental\Domain\Apartment\ApartmentFactory;
 use Rental\Domain\Apartment\ApartmentRepository;
+use Rental\Domain\Period;
 
 class ApartmentService
 {
@@ -38,5 +40,15 @@ class ApartmentService
         );
 
         $this->apartmentRepository->save($apartment);
+    }
+
+    public function book(string $id, string $tenantId, string $start, string $end): ApartmentBooked
+    {
+        $apartment = $this->apartmentRepository->findOneById($id);
+        $start = new \DateTime($start);
+        $end = new \DateTime($end);
+        $period = new Period($start, $end);
+
+        return $apartment->book($tenantId, $period);
     }
 }

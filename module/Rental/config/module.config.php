@@ -9,6 +9,7 @@
 namespace Rental;
 
 use Laminas\Router\Http\Literal;
+use Laminas\Router\Http\Segment;
 use Laminas\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
@@ -25,32 +26,76 @@ return [
                     ],
                 ],
             ],
-            'apartment' => [
-                'type'    => Literal::class,
+            'api' => [
+                'type' => Literal::class,
                 'options' => [
-                    'route'    => '/apartment',
-                    'defaults' => [
-                        'controller' => Infrastructure\Controller\ApartmentController::class
-                    ],
+                    'route' => '/api',
                 ],
-            ],
-            'hotel' => [
-                'type'    => Literal::class,
-                'options' => [
-                    'route'    => '/hotel',
-                    'defaults' => [
-                        'controller' => Infrastructure\Controller\HotelController::class
-                    ],
-                ],
-            ],
-            'hotel-room' => [
-                'type'    => Literal::class,
-                'options' => [
-                    'route'    => '/hotel-room',
-                    'defaults' => [
-                        'controller' => Infrastructure\Controller\HotelRoomController::class
-                    ],
-                ],
+                'may_terminate' => false,
+                'child_routes' => [
+                    'v1' => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/v1'
+                        ],
+                        'may_terminate' => false,
+                        'child_routes' => [
+                            'apartment' => [
+                                'type'    => Literal::class,
+                                'options' => [
+                                    'route'    => '/apartment',
+                                    'defaults' => [
+                                        'controller' => Infrastructure\Controller\ApartmentController::class
+                                    ],
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    'statistics' => [
+                                        'type' => Segment::class,
+                                        'options' => [
+                                            'route' => '/:id/book',
+                                            'defaults' => [
+                                                'controller' => Infrastructure\Controller\ApartmentController::class,
+                                                'action' => 'book'
+                                            ]
+                                        ],
+                                    ]
+                                ]
+                            ],
+                            'hotel' => [
+                                'type'    => Literal::class,
+                                'options' => [
+                                    'route'    => '/hotel',
+                                    'defaults' => [
+                                        'controller' => Infrastructure\Controller\HotelController::class
+                                    ],
+                                ],
+                            ],
+                            'hotel-room' => [
+                                'type'    => Literal::class,
+                                'options' => [
+                                    'route'    => '/hotel-room',
+                                    'defaults' => [
+                                        'controller' => Infrastructure\Controller\HotelRoomController::class
+                                    ],
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    'statistics' => [
+                                        'type' => Segment::class,
+                                        'options' => [
+                                            'route' => '/:id/book',
+                                            'defaults' => [
+                                                'controller' => Infrastructure\Controller\HotelRoomController::class,
+                                                'action' => 'book'
+                                            ]
+                                        ],
+                                    ]
+                                ]
+                            ],
+                        ]
+                    ]
+                ]
             ],
         ],
     ],

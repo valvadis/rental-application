@@ -2,7 +2,6 @@
 
 namespace Rental\Infrastructure\Controller;
 
-use Laminas\Json\Json;
 use Laminas\Mvc\Controller\AbstractRestfulController;
 use Laminas\View\Model\JsonModel;
 use Rental\Application\Service\HotelService;
@@ -18,9 +17,6 @@ class HotelController extends AbstractRestfulController
 
     public function create($data): JsonModel
     {
-        $content = $this->getRequest()->getContent();
-        $data = Json::decode($content, Json::TYPE_ARRAY);
-
         $this->hotelService->add(
             $data['name'],
             $data['street'],

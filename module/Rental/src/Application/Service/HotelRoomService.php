@@ -2,11 +2,9 @@
 
 namespace Rental\Application\Service;
 
-use Rental\Domain\Apartment\ApartmentBooked;
 use Rental\Domain\Hotel\HotelRepository;
 use Rental\Domain\Hotel\HotelRoomRepository;
 use Rental\Domain\Hotel\HotelRoomFactory;
-use Rental\Domain\Period;
 
 class HotelRoomService
 {

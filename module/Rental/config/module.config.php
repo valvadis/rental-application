@@ -21,7 +21,7 @@ return [
                 'options' => [
                     'route'    => '/',
                     'defaults' => [
-                        'controller' => Infrastructure\Controller\DocumentationController::class,
+                        'controller' => Infrastructure\Controller\IndexController::class,
                         'action' => 'index'
                     ],
                 ],
@@ -104,7 +104,7 @@ return [
             Infrastructure\Controller\ApartmentController::class => ReflectionBasedAbstractFactory::class,
             Infrastructure\Controller\HotelController::class => ReflectionBasedAbstractFactory::class,
             Infrastructure\Controller\HotelRoomController::class => ReflectionBasedAbstractFactory::class,
-            Infrastructure\Controller\DocumentationController::class => InvokableFactory::class,
+            Infrastructure\Controller\IndexController::class => InvokableFactory::class,
         ],
     ],
     'service_manager' => [
@@ -121,12 +121,8 @@ return [
         'not_found_template'       => 'error/404',
         'exception_template'       => 'error/index',
         'template_map' => [
-            'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
-        ],
-        'template_path_stack' => [
-            __DIR__ . '/../view',
         ],
         'strategies' => [
             'ViewJsonStrategy'

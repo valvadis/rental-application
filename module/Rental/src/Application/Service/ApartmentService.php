@@ -2,10 +2,8 @@
 
 namespace Rental\Application\Service;
 
-use Rental\Domain\Apartment\ApartmentBooked;
 use Rental\Domain\Apartment\ApartmentFactory;
 use Rental\Domain\Apartment\ApartmentRepository;
-use Rental\Domain\Period;
 
 class ApartmentService
 {

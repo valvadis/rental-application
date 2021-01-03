@@ -8,8 +8,8 @@ use Psr\Container\ContainerInterface;
 use Rental\Application\Service\ApartmentService;
 use Rental\Domain\Apartment\Apartment;
 use Rental\Domain\Apartment\ApartmentRepository;
-use Rental\Domain\Apartment\Booking;
-use Rental\Domain\Apartment\BookingRepository;
+use Rental\Domain\Booking\Booking;
+use Rental\Domain\Booking\BookingRepository;
 
 class ApartmentServiceFactory implements FactoryInterface
 {

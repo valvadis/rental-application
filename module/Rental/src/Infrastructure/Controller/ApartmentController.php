@@ -41,8 +41,6 @@ class ApartmentController extends AbstractRestfulController
         $content = $this->getRequest()->getContent();
         $data = Json::decode($content, Json::TYPE_ARRAY);
 
-        $this->layout()->setTerminal(true);
-
         $this->apartmentService->book(
             $apartmentId,
             $data['tenantId'],

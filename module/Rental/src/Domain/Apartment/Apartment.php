@@ -6,6 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Rental\Domain\Address;
 use Doctrine\ORM\Mapping as ORM;
+use Rental\Domain\Booking\ApartmentBooking;
+use Rental\Domain\Booking\BookingDay;
 use Rental\Domain\Period;
 
 /**
@@ -41,7 +43,7 @@ class Apartment
     private Collection $rooms;
 
     /**
-     * @ORM\OneToMany(targetEntity="Booking", mappedBy="apartment", cascade="persist")
+     * @ORM\OneToMany(targetEntity="Rental\Domain\Booking\ApartmentBooking", mappedBy="apartment", cascade="persist")
      */
     private Collection $bookings;
 
@@ -59,9 +61,12 @@ class Apartment
         return $this->rooms;
     }
 
-    public function book(string $tenantId, Period $period): Booking
+    public function book(string $tenantId, Period $period): ApartmentBooking
     {
-        $booking = new Booking($this, $tenantId, $period);
+        $days = array_map(function (\DateTime $day) {
+            return new BookingDay($day);
+        }, $period->asDays());
+        $booking = new ApartmentBooking($this, $tenantId, new ArrayCollection($days));
         $this->bookings->add($booking);
 
         return $booking;

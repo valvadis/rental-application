@@ -1,6 +1,6 @@
 <?php
 
-namespace Rental\Domain\Apartment;
+namespace Rental\Domain\Booking;
 
 interface BookingRepository
 {

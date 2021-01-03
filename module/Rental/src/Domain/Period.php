@@ -38,4 +38,18 @@ class Period
     {
         return $this->end;
     }
+
+    public function asDays(): array
+    {
+        $this->end->modify('+1 day');
+        $interval = new \DateInterval('P1D');
+        $period = new \DatePeriod($this->start, $interval, $this->end);
+
+        $days = [];
+        foreach ($period as $date) {
+            $days[] = $date;
+        }
+
+        return $days;
+    }
 }

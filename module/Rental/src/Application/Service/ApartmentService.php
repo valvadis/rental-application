@@ -4,7 +4,7 @@ namespace Rental\Application\Service;
 
 use Rental\Domain\Apartment\ApartmentFactory;
 use Rental\Domain\Apartment\ApartmentRepository;
-use Rental\Domain\Apartment\BookingRepository;
+use Rental\Domain\Booking\BookingRepository;
 use Rental\Domain\Period;
 
 class ApartmentService

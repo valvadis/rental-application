@@ -8,6 +8,8 @@ use Psr\Container\ContainerInterface;
 use Rental\Application\Service\ApartmentService;
 use Rental\Domain\Apartment\Apartment;
 use Rental\Domain\Apartment\ApartmentRepository;
+use Rental\Domain\Apartment\Booking;
+use Rental\Domain\Apartment\BookingRepository;
 
 class ApartmentServiceFactory implements FactoryInterface
 {
@@ -16,6 +18,9 @@ class ApartmentServiceFactory implements FactoryInterface
         /** @var ApartmentRepository $apartmentRepository */
         $apartmentRepository = $container->get(EntityManager::class)->getRepository(Apartment::class);
 
-        return new ApartmentService($apartmentRepository);
+        /** @var BookingRepository $bookingRepository */
+        $bookingRepository = $container->get(EntityManager::class)->getRepository(Booking::class);
+
+        return new ApartmentService($apartmentRepository, $bookingRepository);
     }
 }

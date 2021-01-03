@@ -4,14 +4,19 @@ namespace Rental\Application\Service;
 
 use Rental\Domain\Apartment\ApartmentFactory;
 use Rental\Domain\Apartment\ApartmentRepository;
+use Rental\Domain\Apartment\BookingRepository;
+use Rental\Domain\Period;
 
 class ApartmentService
 {
     private ApartmentRepository $apartmentRepository;
 
-    public function __construct(ApartmentRepository $apartmentRepository)
+    private BookingRepository $bookingRepository;
+
+    public function __construct(ApartmentRepository $apartmentRepository, BookingRepository $bookingRepository)
     {
         $this->apartmentRepository = $apartmentRepository;
+        $this->bookingRepository = $bookingRepository;
     }
 
     public function add(
@@ -38,5 +43,14 @@ class ApartmentService
         );
 
         $this->apartmentRepository->save($apartment);
+    }
+
+    public function book(string $id, string $tenantId, \DateTime $start, \DateTime $end): void
+    {
+        $apartment = $this->apartmentRepository->findOneById($id);
+        $period = new Period($start, $end);
+        $booking = $apartment->book($tenantId, $period);
+
+        $this->bookingRepository->save($booking);
     }
 }

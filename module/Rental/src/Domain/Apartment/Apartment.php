@@ -2,9 +2,11 @@
 
 namespace Rental\Domain\Apartment;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Rental\Domain\Address;
 use Doctrine\ORM\Mapping as ORM;
+use Rental\Domain\Period;
 
 /**
  * @ORM\Entity(repositoryClass="Rental\Infrastructure\Repository\ApartmentRepository")
@@ -38,16 +40,30 @@ class Apartment
      */
     private Collection $rooms;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Booking", mappedBy="apartment", cascade="persist")
+     */
+    private Collection $bookings;
+
     public function __construct(string $ownerId, Address $address, string $description, Collection $rooms)
     {
         $this->ownerId = $ownerId;
         $this->address = $address;
         $this->description = $description;
         $this->rooms = $rooms;
+        $this->bookings = new ArrayCollection();
     }
 
     public function getRooms(): Collection
     {
         return $this->rooms;
+    }
+
+    public function book(string $tenantId, Period $period): Booking
+    {
+        $booking = new Booking($this, $tenantId, $period);
+        $this->bookings->add($booking);
+
+        return $booking;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Rental\Infrastructure\Controller;
 
+use Laminas\Json\Json;
 use Laminas\Mvc\Controller\AbstractRestfulController;
 use Laminas\View\Model\JsonModel;
 use Rental\Application\Service\ApartmentService;
@@ -27,6 +28,26 @@ class ApartmentController extends AbstractRestfulController
             $data['country'],
             $data['description'],
             $data['rooms']
+        );
+
+        return new JsonModel([
+            'status' => 'OK'
+        ]);
+    }
+
+    public function bookAction(): JsonModel
+    {
+        $apartmentId = $this->params()->fromRoute('id');
+        $content = $this->getRequest()->getContent();
+        $data = Json::decode($content, Json::TYPE_ARRAY);
+
+        $this->layout()->setTerminal(true);
+
+        $this->apartmentService->book(
+            $apartmentId,
+            $data['tenantId'],
+            new \DateTime($data['start']),
+            new \DateTime($data['end'])
         );
 
         return new JsonModel([

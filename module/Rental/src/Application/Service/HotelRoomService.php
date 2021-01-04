@@ -3,8 +3,8 @@
 namespace Rental\Application\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Rental\Domain\Booking\BookingRepository;
 use Rental\Domain\Booking\BookingDay;
+use Rental\Domain\Booking\BookingRepository;
 use Rental\Domain\Hotel\HotelRepository;
 use Rental\Domain\Hotel\HotelRoomRepository;
 use Rental\Domain\Hotel\HotelRoomFactory;
@@ -47,11 +47,14 @@ class HotelRoomService
     public function book(string $id, string $tenantId, array $days): void
     {
         $hotelRoom = $this->hotelRoomRepository->findOneById($id);
-        $days = array_map(function (string $day) {
-            $period[] = new BookingDay($day);
-        }, $days);
+        $daysCollection = new ArrayCollection(
+            array_map(function (string $day) {
+                $date = new \DateTime($day);
+                return new BookingDay($date);
+            }, $days)
+        );
+        $booking = $hotelRoom->book($tenantId, $daysCollection);
 
-        $booking = $hotelRoom->book($tenantId, new ArrayCollection($days));
         $this->bookingRepository->save($booking);
     }
 }

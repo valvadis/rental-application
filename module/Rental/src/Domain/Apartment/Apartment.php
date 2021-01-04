@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\Collection;
 use Rental\Domain\Address;
 use Doctrine\ORM\Mapping as ORM;
 use Rental\Domain\Booking\ApartmentBooking;
-use Rental\Domain\Booking\BookingDay;
 use Rental\Domain\Period;
 
 /**
@@ -63,10 +62,7 @@ class Apartment
 
     public function book(string $tenantId, Period $period): ApartmentBooking
     {
-        $days = array_map(function (\DateTime $day) {
-            return new BookingDay($day);
-        }, $period->asDays());
-        $booking = new ApartmentBooking($this, $tenantId, new ArrayCollection($days));
+        $booking = new ApartmentBooking($this, $tenantId, new ArrayCollection($period->asDays()));
         $this->bookings->add($booking);
 
         return $booking;

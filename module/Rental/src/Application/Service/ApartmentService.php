@@ -2,8 +2,10 @@
 
 namespace Rental\Application\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Rental\Domain\Apartment\ApartmentFactory;
 use Rental\Domain\Apartment\ApartmentRepository;
+use Rental\Domain\Booking\BookingDay;
 use Rental\Domain\Booking\BookingRepository;
 use Rental\Domain\Period;
 

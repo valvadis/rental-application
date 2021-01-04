@@ -9,7 +9,7 @@ final class BookingAccept implements CommandInterface
 {
     use CommandTrait;
 
-    public string $bookingId;
+    private string $bookingId;
 
     public function __construct(string $bookingId)
     {

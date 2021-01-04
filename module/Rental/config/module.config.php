@@ -1,17 +1,12 @@
 <?php
 
-/**
- * @see       https://github.com/laminas/laminas-mvc-skeleton for the canonical source repository
- * @copyright https://github.com/laminas/laminas-mvc-skeleton/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas/laminas-mvc-skeleton/blob/master/LICENSE.md New BSD License
- */
-
 namespace Rental;
 
 use Laminas\Router\Http\Literal;
 use Laminas\Router\Http\Segment;
 use Laminas\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory;
 use Laminas\ServiceManager\Factory\InvokableFactory;
+use Rental\Infrastructure\Factory;
 
 return [
     'router' => [
@@ -93,6 +88,38 @@ return [
                                     ]
                                 ]
                             ],
+                            'booking' => [
+                                'type'    => Literal::class,
+                                'options' => [
+                                    'route'    => '/booking',
+                                    'defaults' => [
+                                        'controller' => Infrastructure\Controller\BookingController::class
+                                    ],
+                                ],
+                                'may_terminate' => true,
+                                'child_routes' => [
+                                    'accept' => [
+                                        'type' => Segment::class,
+                                        'options' => [
+                                            'route' => '/:id/accept',
+                                            'defaults' => [
+                                                'controller' => Infrastructure\Controller\BookingController::class,
+                                                'action' => 'accept'
+                                            ]
+                                        ],
+                                    ],
+                                    'reject' => [
+                                        'type' => Segment::class,
+                                        'options' => [
+                                            'route' => '/:id/reject',
+                                            'defaults' => [
+                                                'controller' => Infrastructure\Controller\BookingController::class,
+                                                'action' => 'reject'
+                                            ]
+                                        ],
+                                    ]
+                                ]
+                            ],
                         ]
                     ]
                 ]
@@ -104,14 +131,18 @@ return [
             Infrastructure\Controller\ApartmentController::class => ReflectionBasedAbstractFactory::class,
             Infrastructure\Controller\HotelController::class => ReflectionBasedAbstractFactory::class,
             Infrastructure\Controller\HotelRoomController::class => ReflectionBasedAbstractFactory::class,
+            Infrastructure\Controller\BookingController::class => ReflectionBasedAbstractFactory::class,
             Infrastructure\Controller\IndexController::class => InvokableFactory::class,
         ],
     ],
     'service_manager' => [
         'factories' => [
-            Application\Service\ApartmentService::class => Infrastructure\Factory\ApartmentServiceFactory::class,
-            Application\Service\HotelService::class => Infrastructure\Factory\HotelServiceFactory::class,
-            Application\Service\HotelRoomService::class => Infrastructure\Factory\HotelRoomServiceFactory::class,
+            Application\Service\ApartmentService::class => Factory\ApartmentServiceFactory::class,
+            Application\Service\HotelService::class => Factory\HotelServiceFactory::class,
+            Application\Service\HotelRoomService::class => Factory\HotelRoomServiceFactory::class,
+            Application\Handler\BookingAcceptHandler::class => Factory\BookingAcceptHandlerFactory::class,
+            Application\Handler\BookingRejectHandler::class => Factory\BookingRejectHandlerFactory::class,
+            Infrastructure\CommandBus\CommandBus::class => Infrastructure\CommandBus\CommandBusFactory::class,
         ]
     ],
     'view_manager' => [

@@ -3,8 +3,9 @@
 namespace Rental\Application\Handler;
 
 use Rental\Application\CommandInterface;
+use Rental\Application\CommandTrait;
 
-class BookingAccept implements CommandInterface
+final class BookingAccept implements CommandInterface
 {
     use CommandTrait;
 
@@ -15,7 +16,7 @@ class BookingAccept implements CommandInterface
         $this->bookingId = $bookingId;
     }
 
-    public function getBookingId(): int
+    public function getBookingId(): string
     {
         return $this->bookingId;
     }

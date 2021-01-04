@@ -26,6 +26,11 @@ abstract class Booking
     protected string $tenantId;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    protected string $status = BookingStatus::OPENED;
+
+    /**
      * @ORM\OneToMany(targetEntity="BookingDay", mappedBy="booking", cascade="persist")
      */
     protected Collection $days;
@@ -39,5 +44,15 @@ abstract class Booking
     public function getDays(): Collection
     {
         return $this->days;
+    }
+
+    public function reject(): void
+    {
+        $this->status = BookingStatus::REJECTED;
+    }
+
+    public function accept(): void
+    {
+        $this->status = BookingStatus::ACCEPTED;
     }
 }

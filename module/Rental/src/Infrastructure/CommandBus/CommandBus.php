@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
-namespace Rental\Application;
+namespace Rental\Infrastructure\CommandBus;
 
 use Interop\Container\ContainerInterface;
+use Rental\Application\CommandInterface;
 
 class CommandBus
 {

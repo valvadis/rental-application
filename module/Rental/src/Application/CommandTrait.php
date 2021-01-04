@@ -1,8 +1,6 @@
 <?php
 
-namespace Rental\Application\Handler;
-
-use Rental\Application\CommandInterface;
+namespace Rental\Application;
 
 trait CommandTrait
 {

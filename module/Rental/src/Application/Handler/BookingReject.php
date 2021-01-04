@@ -3,19 +3,20 @@
 namespace Rental\Application\Handler;
 
 use Rental\Application\CommandInterface;
+use Rental\Application\CommandTrait;
 
-class BookingReject implements CommandInterface
+final class BookingReject implements CommandInterface
 {
     use CommandTrait;
 
-    public string $bookingId;
+    private string $bookingId;
 
     public function __construct(string $bookingId)
     {
         $this->bookingId = $bookingId;
     }
 
-    public function getBookingId(): int
+    public function getBookingId(): string
     {
         return $this->bookingId;
     }

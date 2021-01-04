@@ -19,4 +19,13 @@ class BookingRepository extends EntityRepository implements BookingRepositoryInt
         $this->getEntityManager()->persist($booking);
         $this->getEntityManager()->flush();
     }
+
+    public function findOneById(string $id): Booking
+    {
+        $queryBuilder = $this->createQueryBuilder('b')
+            ->where('b.id = :id')
+            ->setParameter('id', $id);
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
+    }
 }

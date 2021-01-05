@@ -30,13 +30,14 @@
         }
     },
     "scripts": {
-        "cs-check": "phpcs",
+        "cs-check": "phpcs --standard=phpcs.xml",
         "cs-fix": "phpcbf",
         "development-disable": "laminas-development-mode disable",
         "development-enable": "laminas-development-mode enable",
         "development-status": "laminas-development-mode status",
-        "serve": "php -S 0.0.0.0:8084 -t public",
-        "test": "phpunit"
+        "serve": "php -S 0.0.0.0:8081 -t public public/index.php",
+        "test:unit": "./vendor/bin/phpunit",
+        "test:integration": "./vendor/bin/behat"
     },
     "scripts-descriptions": {
         "cs-check": "Run coding standards checks.",

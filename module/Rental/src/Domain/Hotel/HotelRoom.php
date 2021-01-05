@@ -63,5 +63,4 @@ class HotelRoom
 
         return $booking;
     }
-
 }

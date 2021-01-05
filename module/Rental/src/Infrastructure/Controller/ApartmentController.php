@@ -48,6 +48,8 @@ class ApartmentController extends AbstractRestfulController
             new \DateTime($data['end'])
         );
 
+        $this->getEventManager()->trigger('apartmentBooked', $this, ['test']);
+
         return new JsonModel([
             'status' => 'OK'
         ]);

@@ -23,7 +23,7 @@ class HotelService
         string $city,
         string $country
     ): void {
-        $hotel = (new HotelFactory)->create(
+        $hotel = (new HotelFactory())->create(
             $name,
             $street,
             $postalCode,

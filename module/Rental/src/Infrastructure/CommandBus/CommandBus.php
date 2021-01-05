@@ -18,7 +18,7 @@ class CommandBus
     {
         $commandHandlerName = $command->getCommandHandlerName();
 
-        if (!$this->container->has($commandHandlerName)) {
+        if (! $this->container->has($commandHandlerName)) {
             throw new CommandHandlerNotFoundException(get_class($command));
         }
 

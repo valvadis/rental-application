@@ -4,7 +4,7 @@ namespace Rental\Domain\Booking;
 
 class BookingStatus
 {
-    const OPENED = 'opened';
-    const REJECTED = 'rejected';
-    const ACCEPTED = 'accepted';
+    public const OPENED = 'opened';
+    public const REJECTED = 'rejected';
+    public const ACCEPTED = 'accepted';
 }

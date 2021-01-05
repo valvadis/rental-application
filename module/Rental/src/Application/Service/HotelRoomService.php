@@ -34,7 +34,7 @@ class HotelRoomService
         array $spaces
     ): void {
         $hotel = $this->hotelRepository->findOneById($hotelId);
-        $hotelRoom = (new HotelRoomFactory)->create(
+        $hotelRoom = (new HotelRoomFactory())->create(
             $hotel,
             $number,
             $description,

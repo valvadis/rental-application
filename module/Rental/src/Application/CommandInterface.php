@@ -4,7 +4,7 @@ namespace Rental\Application;
 
 interface CommandInterface
 {
-    const SUFIX = 'Handler';
+    public const SUFIX = 'Handler';
 
     public function getCommandHandlerName(): string;
 }

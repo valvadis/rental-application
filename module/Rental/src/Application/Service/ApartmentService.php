@@ -32,7 +32,7 @@ class ApartmentService
         string $description,
         array $rooms
     ): void {
-        $apartment = (new ApartmentFactory)->create(
+        $apartment = (new ApartmentFactory())->create(
             $ownerId,
             $street,
             $postalCode,

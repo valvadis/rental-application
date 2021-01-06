@@ -7,15 +7,33 @@ use Laminas\Json\Json;
 use Laminas\Mvc\Controller\AbstractRestfulController;
 use Laminas\View\Model\JsonModel;
 use Rental\Application\Service\ApartmentService;
+use Rental\Query\Repository\ApartmentQueryRepository;
 
 class ApartmentController extends AbstractRestfulController
 {
     private ApartmentService $apartmentService;
 
-    public function __construct(ApartmentService $apartmentService)
+    private ApartmentQueryRepository $apartmentQueryRepository;
+
+    public function __construct(ApartmentService $apartmentService, ApartmentQueryRepository $apartmentQueryRepository)
     {
         $this->apartmentService = $apartmentService;
+        $this->apartmentQueryRepository = $apartmentQueryRepository;
     }
+
+    public function getList()
+    {
+        return new JsonModel([
+            'data' => $this->apartmentQueryRepository->findAll()
+        ]);
+    }
+
+//    public function get($id)
+//    {
+//        return new JsonModel([
+//            'data' => $this->apartmentQueryRepository->findOneWithDetails($id)
+//        ]);
+//    }
 
     public function create($data): JsonModel
     {

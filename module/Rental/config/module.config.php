@@ -128,8 +128,8 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Infrastructure\Controller\ApartmentController::class => ReflectionBasedAbstractFactory::class,
-            Infrastructure\Controller\HotelController::class => ReflectionBasedAbstractFactory::class,
+            Infrastructure\Controller\ApartmentController::class => Factory\ApartmentControllerFactory::class,
+            Infrastructure\Controller\HotelController::class => Factory\HotelControllerFactory::class,
             Infrastructure\Controller\HotelRoomController::class => ReflectionBasedAbstractFactory::class,
             Infrastructure\Controller\BookingController::class => ReflectionBasedAbstractFactory::class,
             Infrastructure\Controller\IndexController::class => InvokableFactory::class,
@@ -142,8 +142,8 @@ return [
             Application\Service\HotelRoomService::class => Factory\HotelRoomServiceFactory::class,
             Application\Handler\BookingAcceptHandler::class => Factory\BookingAcceptHandlerFactory::class,
             Application\Handler\BookingRejectHandler::class => Factory\BookingRejectHandlerFactory::class,
-            Infrastructure\CommandBus\CommandBus::class => Infrastructure\CommandBus\CommandBusFactory::class,
             Infrastructure\Listener\BookingListener::class => Factory\BookingListenerFactory::class,
+            Infrastructure\CommandBus\CommandBus::class => Infrastructure\CommandBus\CommandBusFactory::class,
         ]
     ],
     'view_manager' => [
@@ -172,7 +172,8 @@ return [
             ],
             'orm_default' => [
                 'drivers' => [
-                    __NAMESPACE__ . '\Domain' => __NAMESPACE__ . '_driver'
+                    __NAMESPACE__ . '\Domain' => __NAMESPACE__ . '_driver',
+                    __NAMESPACE__ . '\Query' => __NAMESPACE__ . '_driver',
                 ],
             ],
         ],

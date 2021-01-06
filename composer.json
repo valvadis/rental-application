@@ -17,7 +17,10 @@
         "laminas/laminas-mvc": "^3.1.1",
         "ext-pdo": "*",
         "doctrine/doctrine-orm-module": "^3.1",
-        "laminas/laminas-json": "^3.1"
+        "laminas/laminas-json": "^3.1",
+        "phpmd/phpmd": "^2.9",
+        "phpmetrics/phpmetrics": "^2.7",
+        "squizlabs/php_codesniffer": "^3.5"
     },
     "autoload": {
         "psr-4": {
@@ -30,22 +33,25 @@
         }
     },
     "scripts": {
-        "cs-check": "phpcs --standard=phpcs.xml",
-        "cs-fix": "phpcbf",
+        "phpcs": "./vendor/bin/phpcs --standard=phpcs.xml",
+        "phpmd": "./vendor/bin/phpmd ./module text phpmd.xml",
+        "phpmetrics": "./vendor/bin/phpmetrics --report-html=data/report ./module",
         "development-disable": "laminas-development-mode disable",
         "development-enable": "laminas-development-mode enable",
         "development-status": "laminas-development-mode status",
         "serve": "php -S 0.0.0.0:8081 -t public public/index.php",
-        "test:unit": "./vendor/bin/phpunit",
-        "test:integration": "./vendor/bin/behat"
+        "tests:unit": "./vendor/bin/phpunit",
+        "tests:integration": "./vendor/bin/behat"
     },
     "scripts-descriptions": {
-        "cs-check": "Run coding standards checks.",
-        "cs-fix": "Automatically fix coding standard issues.",
+        "phpcs": "Run coding standards checks.",
+        "phpmd": "Detect potential problems and bugs.",
+        "phpmetrics": "Generate report with various metrics about project.",
         "development-disable": "Disable development mode.",
         "development-enable": "Enable development mode.",
         "development-status": "Detail whether or not the application is in development mode.",
         "serve": "Start the built-in PHP web server and serve the application.",
-        "test": "Run unit tests."
+        "tests:unit": "Run unit tests.",
+        "tests:integration": "Run integration tests."
     }
 }

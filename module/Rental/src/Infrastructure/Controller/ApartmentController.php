@@ -2,6 +2,7 @@
 
 namespace Rental\Infrastructure\Controller;
 
+use DateTime;
 use Laminas\Json\Json;
 use Laminas\Mvc\Controller\AbstractRestfulController;
 use Laminas\View\Model\JsonModel;
@@ -44,8 +45,8 @@ class ApartmentController extends AbstractRestfulController
         $this->apartmentService->book(
             $apartmentId,
             $data['tenantId'],
-            new \DateTime($data['start']),
-            new \DateTime($data['end'])
+            new DateTime($data['start']),
+            new DateTime($data['end'])
         );
 
         $this->getEventManager()->trigger('apartmentBooked', $this, ['test']);

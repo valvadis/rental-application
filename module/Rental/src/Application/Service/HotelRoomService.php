@@ -2,6 +2,7 @@
 
 namespace Rental\Application\Service;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Rental\Domain\Booking\BookingDay;
 use Rental\Domain\Booking\BookingRepository;
@@ -49,7 +50,7 @@ class HotelRoomService
         $hotelRoom = $this->hotelRoomRepository->findOneById($id);
         $daysCollection = new ArrayCollection(
             array_map(function (string $day) {
-                $date = new \DateTime($day);
+                $date = new DateTime($day);
                 return new BookingDay($date);
             }, $days)
         );

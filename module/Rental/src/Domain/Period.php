@@ -2,7 +2,11 @@
 
 namespace Rental\Domain;
 
+use DateInterval;
+use DatePeriod;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use DomainException;
 
 /**
  * @ORM\Embeddable
@@ -12,29 +16,29 @@ class Period
     /**
      * @ORM\Column(type="date")
      */
-    private \DateTime $start;
+    private DateTime $start;
 
     /**
      * @ORM\Column(type="date")
      */
-    private \DateTime $end;
+    private DateTime $end;
 
-    public function __construct(\DateTime $start, \DateTime $end)
+    public function __construct(DateTime $start, DateTime $end)
     {
         if ($start > $end) {
-            throw new \DomainException('Start date cannot be older than end date.');
+            throw new DomainException('Start date cannot be older than end date.');
         }
 
         $this->start = $start;
         $this->end = $end;
     }
 
-    public function getStart(): \DateTime
+    public function getStart(): DateTime
     {
         return $this->start;
     }
 
-    public function getEnd(): \DateTime
+    public function getEnd(): DateTime
     {
         return $this->end;
     }
@@ -42,8 +46,8 @@ class Period
     public function asDays(): array
     {
         $this->end->modify('+1 day');
-        $interval = new \DateInterval('P1D');
-        $period = new \DatePeriod($this->start, $interval, $this->end);
+        $interval = new DateInterval('P1D');
+        $period = new DatePeriod($this->start, $interval, $this->end);
 
         $days = [];
         foreach ($period as $date) {

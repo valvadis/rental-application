@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ruleset name="Rental App MD rule set">
+    <description>
+        My custom rule set that checks my code in Rental App
+    </description>
+
+    <rule ref="rulesets/codesize.xml/CyclomaticComplexity">
+        <priority>1</priority>
+        <properties>
+            <property name="reportLevel" value="5" />
+        </properties>
+    </rule>
+
+    <rule ref="rulesets/naming.xml">
+        <exclude name="ShortVariable" />
+        <exclude name="LongVariable" />
+    </rule>
+
+    <rule ref="rulesets/cleancode.xml">
+        <exclude name="StaticAccess" />
+    </rule>
+    <rule ref="rulesets/cleancode.xml/StaticAccess">
+        <properties>
+            <property name="exceptions">
+                <value>
+                    \DateTime,
+                    \DateInterval,
+                    \DateTimeZone,
+                    \Laminas\Stdlib\ArrayUtils,
+                    \Laminas\Json\Json
+                </value>
+            </property>
+        </properties>
+    </rule>
+</ruleset>

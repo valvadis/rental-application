@@ -42,14 +42,14 @@ class ApartmentController extends AbstractRestfulController
         $content = $this->getRequest()->getContent();
         $data = Json::decode($content, Json::TYPE_ARRAY);
 
-        $this->apartmentService->book(
+        $apartmentBooked = $this->apartmentService->book(
             $apartmentId,
             $data['tenantId'],
             new DateTime($data['start']),
             new DateTime($data['end'])
         );
 
-        $this->getEventManager()->trigger('apartmentBooked', $this, ['test']);
+        $this->getEventManager()->trigger(get_class($apartmentBooked), $this, $apartmentBooked);
 
         return new JsonModel([
             'status' => 'OK'

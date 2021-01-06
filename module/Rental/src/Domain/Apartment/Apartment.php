@@ -55,14 +55,19 @@ class Apartment
         $this->bookings = new ArrayCollection();
     }
 
+    public function getOwnerId(): string
+    {
+        return $this->ownerId;
+    }
+
     public function getRooms(): Collection
     {
         return $this->rooms;
     }
 
-    public function book(string $tenantId, Period $period): ApartmentBooking
+    public function book(string $tenantId, Collection $days): ApartmentBooking
     {
-        $booking = new ApartmentBooking($this, $tenantId, new ArrayCollection($period->asDays()));
+        $booking = new ApartmentBooking($this, $tenantId, $days);
         $this->bookings->add($booking);
 
         return $booking;

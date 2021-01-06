@@ -143,6 +143,7 @@ return [
             Application\Handler\BookingAcceptHandler::class => Factory\BookingAcceptHandlerFactory::class,
             Application\Handler\BookingRejectHandler::class => Factory\BookingRejectHandlerFactory::class,
             Infrastructure\CommandBus\CommandBus::class => Infrastructure\CommandBus\CommandBusFactory::class,
+            Infrastructure\Listener\BookingListener::class => Factory\BookingListenerFactory::class,
         ]
     ],
     'view_manager' => [

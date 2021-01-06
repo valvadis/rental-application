@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Rental\Domain\Booking\BookingDay;
 use Rental\Domain\Booking\BookingRepository;
 use Rental\Domain\Hotel\HotelRepository;
+use Rental\Domain\Hotel\HotelRoomBooked;
 use Rental\Domain\Hotel\HotelRoomRepository;
 use Rental\Domain\Hotel\HotelRoomFactory;
 
@@ -45,7 +46,7 @@ class HotelRoomService
         $this->hotelRoomRepository->save($hotelRoom);
     }
 
-    public function book(string $id, string $tenantId, array $days): void
+    public function book(string $id, string $tenantId, array $days): HotelRoomBooked
     {
         $hotelRoom = $this->hotelRoomRepository->findOneById($id);
         $daysCollection = new ArrayCollection(
@@ -57,5 +58,7 @@ class HotelRoomService
         $booking = $hotelRoom->book($tenantId, $daysCollection);
 
         $this->bookingRepository->save($booking);
+
+        return new HotelRoomBooked($id, $tenantId, $days);
     }
 }

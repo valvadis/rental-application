@@ -39,7 +39,7 @@
         "development-disable": "laminas-development-mode disable",
         "development-enable": "laminas-development-mode enable",
         "development-status": "laminas-development-mode status",
-        "serve": "php -S 0.0.0.0:8081 -t public public/index.php",
+        "serve": "php -S 0.0.0.0:8084 -t public public/index.php",
         "tests:unit": "./vendor/bin/phpunit",
         "tests:integration": "./vendor/bin/behat"
     },

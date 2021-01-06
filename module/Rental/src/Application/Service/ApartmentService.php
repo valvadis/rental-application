@@ -2,7 +2,9 @@
 
 namespace Rental\Application\Service;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
+use Rental\Domain\Apartment\ApartmentBooked;
 use Rental\Domain\Apartment\ApartmentFactory;
 use Rental\Domain\Apartment\ApartmentRepository;
 use Rental\Domain\Booking\BookingDay;
@@ -47,12 +49,19 @@ class ApartmentService
         $this->apartmentRepository->save($apartment);
     }
 
-    public function book(string $id, string $tenantId, \DateTime $start, \DateTime $end): void
+    public function book(string $id, string $tenantId, \DateTime $start, \DateTime $end): ApartmentBooked
     {
         $apartment = $this->apartmentRepository->findOneById($id);
         $period = new Period($start, $end);
-        $booking = $apartment->book($tenantId, $period);
+        $daysCollection = new ArrayCollection(
+            array_map(function (DateTime $day) {
+                return new BookingDay($day);
+            }, $period->asDays())
+        );
+        $booking = $apartment->book($tenantId, $daysCollection);
 
         $this->bookingRepository->save($booking);
+
+        return new ApartmentBooked($id, $tenantId, $period);
     }
 }

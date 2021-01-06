@@ -6,6 +6,8 @@ use Doctrine\ORM\EntityManager;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;
 use Rental\Application\Service\HotelRoomService;
+use Rental\Domain\Booking\Booking;
+use Rental\Domain\Booking\BookingRepository;
 use Rental\Domain\Hotel\HotelRoom;
 use Rental\Domain\Hotel\Hotel;
 use Rental\Domain\Hotel\HotelRoomRepository;
@@ -18,9 +20,12 @@ class HotelRoomServiceFactory implements FactoryInterface
         /** @var HotelRoomRepository $hotelRoomRepository */
         $hotelRoomRepository = $container->get(EntityManager::class)->getRepository(HotelRoom::class);
 
-        /** @var HotelRepository $hotelRoomRepository */
+        /** @var HotelRepository $hotelRepository */
         $hotelRepository = $container->get(EntityManager::class)->getRepository(Hotel::class);
 
-        return new HotelRoomService($hotelRoomRepository, $hotelRepository);
+        /** @var BookingRepository $bookingRepository */
+        $bookingRepository = $container->get(EntityManager::class)->getRepository(Booking::class);
+
+        return new HotelRoomService($hotelRoomRepository, $hotelRepository, $bookingRepository);
     }
 }

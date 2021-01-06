@@ -3,7 +3,6 @@
 namespace Rental\Infrastructure\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Rental\Domain\Apartment\Apartment;
 use Rental\Domain\Hotel\HotelRoom;
 use Rental\Domain\Hotel\HotelRoomRepository as HotelRoomRepositoryInterface;
 use Rental\Domain\Hotel\Space;

@@ -2,6 +2,7 @@
 
 namespace Rental\Domain\Hotel;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Rental\Domain\Booking\HotelRoomBooking;
@@ -49,6 +50,7 @@ class HotelRoom
         $this->number = $number;
         $this->description = $description;
         $this->spaces = $spaces;
+        $this->bookings = new ArrayCollection();
     }
 
     public function getSpaces(): Collection

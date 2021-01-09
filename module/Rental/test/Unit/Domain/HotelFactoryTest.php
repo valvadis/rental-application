@@ -1,6 +1,6 @@
 <?php
 
-namespace RentalTest\Domain;
+namespace RentalTest\Unit\Domain;
 
 use PHPUnit\Framework\TestCase;
 use Rental\Domain\Hotel\Hotel;

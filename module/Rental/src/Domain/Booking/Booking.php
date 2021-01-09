@@ -46,6 +46,11 @@ abstract class Booking
         return $this->days;
     }
 
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
     public function reject(): void
     {
         $this->status = BookingStatus::REJECTED;

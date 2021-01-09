@@ -1,0 +1,7 @@
+default:
+  suites:
+    default:
+      paths:
+        [ '%paths.base%/module/Rental/test/Integration' ]
+      contexts:
+        [ RentalTest\Integration\Bootstrap\FeatureContext ]

@@ -1,6 +1,6 @@
 <?php
 
-namespace RentalTest\Domain;
+namespace RentalTest\Unit\Domain;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;

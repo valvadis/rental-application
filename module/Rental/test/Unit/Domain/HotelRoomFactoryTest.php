@@ -1,16 +1,15 @@
 <?php
 
-namespace RentalTest\Domain;
+namespace RentalTest\Unit\Domain;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
-use Rental\Domain\Booking\HotelRoomBooking;
 use Rental\Domain\Hotel\HotelFactory;
+use Rental\Domain\Hotel\HotelRoom;
 use Rental\Domain\Hotel\HotelRoomFactory;
 
-class HotelRoomTest extends TestCase
+class HotelRoomFactoryTest extends TestCase
 {
-    public function testHotelCanBeBookCorrectly(): void
+    public function testHotelFactoryCreatesObjectCorrectly(): void
     {
         $hotel = (new HotelFactory())->create(
             'HOTEL-NAME',
@@ -32,9 +31,7 @@ class HotelRoomTest extends TestCase
             ]
         );
 
-        $hotelRoomBooking = $hotelRoom->book('TENANT-ID', new ArrayCollection());
-
-        $this->assertIsObject($hotelRoomBooking);
-        $this->assertEquals(HotelRoomBooking::class, get_class($hotelRoomBooking));
+        $this->assertIsObject($hotelRoom);
+        $this->assertEquals(HotelRoom::class, get_class($hotelRoom));
     }
 }

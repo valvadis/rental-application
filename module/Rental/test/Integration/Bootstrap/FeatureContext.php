@@ -54,16 +54,24 @@ class FeatureContext implements Context
     public function theResponseContentShouldContain(TableNode $table)
     {
         $content = Json::decode($this->response->getContent(), Json::TYPE_ARRAY);
-        $rows = $table->getRows();
-        $headers = array_shift($rows);
+        $tableRows = $table->getRows();
+        $headers = array_shift($tableRows);
 
-        foreach ($content['data'] as $record) {
-            $row = array_shift($rows);
+        foreach ($tableRows as $tableRowIndex => $tableRow) {
+            $dataRow = $content['data'][$tableRowIndex];
             foreach ($headers as $index => $header) {
-                if ($record[$header] != $row[$index]) {
+                if ($dataRow[$header] != $tableRow[$index]) {
                     throw new PendingException();
                 }
             }
         }
     }
+
+//    /**
+//     * @Given I have got an entity :name with data:
+//     */
+//    public function iHaveGotAnEntityWithData(string $name, TableNode $data)
+//    {
+//
+//    }
 }

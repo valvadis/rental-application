@@ -1,21 +1,21 @@
 <?php
 
-namespace Rental\Infrastructure\Factory;
+namespace Rental\Infrastructure\Factory\Handler;
 
 use Doctrine\ORM\EntityManager;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Psr\Container\ContainerInterface;
-use Rental\Application\Handler\BookingAcceptHandler;
+use Rental\Application\Handler\BookingRejectHandler;
 use Rental\Domain\Booking\Booking;
 use Rental\Domain\Booking\BookingRepository;
 
-class BookingAcceptHandlerFactory implements FactoryInterface
+class BookingRejectHandlerFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): BookingAcceptHandler
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): BookingRejectHandler
     {
         /** @var BookingRepository $bookingRepository */
         $bookingRepository = $container->get(EntityManager::class)->getRepository(Booking::class);
 
-        return new BookingAcceptHandler($bookingRepository);
+        return new BookingRejectHandler($bookingRepository);
     }
 }

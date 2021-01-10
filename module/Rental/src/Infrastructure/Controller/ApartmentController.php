@@ -28,13 +28,6 @@ class ApartmentController extends AbstractRestfulController
         ]);
     }
 
-//    public function get($id)
-//    {
-//        return new JsonModel([
-//            'data' => $this->apartmentQueryRepository->findOneWithDetails($id)
-//        ]);
-//    }
-
     public function create($data): JsonModel
     {
         $this->apartmentService->add(

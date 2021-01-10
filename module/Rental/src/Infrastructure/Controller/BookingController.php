@@ -7,14 +7,25 @@ use Laminas\View\Model\JsonModel;
 use Rental\Application\Handler\BookingAccept;
 use Rental\Application\Handler\BookingReject;
 use Rental\Infrastructure\CommandBus\CommandBus;
+use Rental\Query\Repository\BookingQueryRepository;
 
 class BookingController extends AbstractRestfulController
 {
     private CommandBus $commandBus;
 
-    public function __construct(CommandBus $commandBus)
+    private BookingQueryRepository $bookingQueryRepository;
+
+    public function __construct(CommandBus $commandBus, BookingQueryRepository $bookingQueryRepository)
     {
+        $this->bookingQueryRepository = $bookingQueryRepository;
         $this->commandBus = $commandBus;
+    }
+
+    public function getList()
+    {
+        return new JsonModel([
+            'data' => $this->bookingQueryRepository->findAll()
+        ]);
     }
 
     public function acceptAction(): JsonModel

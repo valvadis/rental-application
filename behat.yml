@@ -4,4 +4,21 @@ default:
       paths:
         [ '%paths.base%/module/Rental/test/Integration' ]
       contexts:
-        [ RentalTest\Integration\Bootstrap\FeatureContext ]
+        - Genesis\SQLExtensionWrapper\DataModSQLContext:
+            debug: false
+        - RentalTest\Integration\Bootstrap\FeatureContext
+  extensions:
+    Genesis\SQLExtensionWrapper\Extension:
+      connections:
+        sqlite:
+          engine: sqlite
+          dbname: ./data/database/rental.db
+      dataModMapping: # Optional
+        "*": \RentalTest\Integration\Fixture\
+      FailAid: # If behat-fail-aid is enabled.
+        output:
+          enabled: true
+          select: true
+          insert: true
+          update: true
+          delete: true

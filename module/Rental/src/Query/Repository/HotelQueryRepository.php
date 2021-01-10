@@ -10,7 +10,7 @@ class HotelQueryRepository extends EntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('h')
             ->addSelect('r')
-            ->join('h.rooms', 'r');
+            ->leftJoin('h.rooms', 'r');
 
         return $queryBuilder->getQuery()->getArrayResult();
     }

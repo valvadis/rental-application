@@ -6,7 +6,10 @@ use Laminas\Router\Http\Literal;
 use Laminas\Router\Http\Segment;
 use Laminas\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory;
 use Laminas\ServiceManager\Factory\InvokableFactory;
-use Rental\Infrastructure\Factory;
+use Rental\Infrastructure\Factory\Controller;
+use Rental\Infrastructure\Factory\Service;
+use Rental\Infrastructure\Factory\Handler;
+use Rental\Infrastructure\Factory\Listener;
 
 return [
     'router' => [
@@ -128,21 +131,21 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Infrastructure\Controller\ApartmentController::class => Factory\ApartmentControllerFactory::class,
-            Infrastructure\Controller\HotelController::class => Factory\HotelControllerFactory::class,
+            Infrastructure\Controller\ApartmentController::class => Controller\ApartmentControllerFactory::class,
+            Infrastructure\Controller\HotelController::class => Controller\HotelControllerFactory::class,
+            Infrastructure\Controller\BookingController::class => Controller\BookingControllerFactory::class,
             Infrastructure\Controller\HotelRoomController::class => ReflectionBasedAbstractFactory::class,
-            Infrastructure\Controller\BookingController::class => ReflectionBasedAbstractFactory::class,
             Infrastructure\Controller\IndexController::class => InvokableFactory::class,
         ],
     ],
     'service_manager' => [
         'factories' => [
-            Application\Service\ApartmentService::class => Factory\ApartmentServiceFactory::class,
-            Application\Service\HotelService::class => Factory\HotelServiceFactory::class,
-            Application\Service\HotelRoomService::class => Factory\HotelRoomServiceFactory::class,
-            Application\Handler\BookingAcceptHandler::class => Factory\BookingAcceptHandlerFactory::class,
-            Application\Handler\BookingRejectHandler::class => Factory\BookingRejectHandlerFactory::class,
-            Infrastructure\Listener\BookingListener::class => Factory\BookingListenerFactory::class,
+            Application\Service\ApartmentService::class => Service\ApartmentServiceFactory::class,
+            Application\Service\HotelService::class => Service\HotelServiceFactory::class,
+            Application\Service\HotelRoomService::class => Service\HotelRoomServiceFactory::class,
+            Application\Handler\BookingAcceptHandler::class => Handler\BookingAcceptHandlerFactory::class,
+            Application\Handler\BookingRejectHandler::class => Handler\BookingRejectHandlerFactory::class,
+            Infrastructure\Listener\BookingListener::class => Listener\BookingListenerFactory::class,
             Infrastructure\CommandBus\CommandBus::class => Infrastructure\CommandBus\CommandBusFactory::class,
         ]
     ],

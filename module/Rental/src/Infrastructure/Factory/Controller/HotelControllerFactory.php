@@ -1,6 +1,6 @@
 <?php
 
-namespace Rental\Infrastructure\Factory;
+namespace Rental\Infrastructure\Factory\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Laminas\ServiceManager\Factory\FactoryInterface;

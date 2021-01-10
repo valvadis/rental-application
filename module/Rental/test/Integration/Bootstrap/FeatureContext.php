@@ -66,12 +66,4 @@ class FeatureContext implements Context
             }
         }
     }
-
-//    /**
-//     * @Given I have got an entity :name with data:
-//     */
-//    public function iHaveGotAnEntityWithData(string $name, TableNode $data)
-//    {
-//
-//    }
 }

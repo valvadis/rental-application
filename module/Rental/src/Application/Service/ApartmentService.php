@@ -10,6 +10,7 @@ use Rental\Domain\Apartment\ApartmentRepository;
 use Rental\Domain\Booking\BookingDay;
 use Rental\Domain\Booking\BookingRepository;
 use Rental\Domain\Period;
+use RuntimeException;
 
 class ApartmentService
 {
@@ -52,6 +53,10 @@ class ApartmentService
     public function book(string $id, string $tenantId, \DateTime $start, \DateTime $end): ApartmentBooked
     {
         $apartment = $this->apartmentRepository->findOneById($id);
+        if (!$apartment) {
+            throw new RuntimeException('Not found apartment with given ID.');
+        }
+
         $period = new Period($start, $end);
         $daysCollection = new ArrayCollection(
             array_map(function (DateTime $day) {

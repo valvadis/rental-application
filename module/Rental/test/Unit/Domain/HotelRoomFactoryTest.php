@@ -9,7 +9,7 @@ use Rental\Domain\Hotel\HotelRoomFactory;
 
 class HotelRoomFactoryTest extends TestCase
 {
-    public function testHotelFactoryCreatesObjectCorrectly(): void
+    public function testHotelRoomFactoryCreatesObjectCorrectly(): void
     {
         $hotel = (new HotelFactory())->create(
             'HOTEL-NAME',

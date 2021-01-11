@@ -32,8 +32,10 @@ class BookingTest extends TestCase
 
         $this->assertIsObject($booking);
         $this->assertEquals(BookingStatus::OPENED, $booking->getStatus());
+
         $booking->accept();
         $this->assertEquals(BookingStatus::ACCEPTED, $booking->getStatus());
+
         $booking->reject();
         $this->assertEquals(BookingStatus::REJECTED, $booking->getStatus());
     }

@@ -2,7 +2,7 @@
 
 namespace Rental\Domain\Apartment;
 
-use Laminas\Form\Element\DateTime;
+use DateTime;
 use Rental\Domain\Period;
 
 final class ApartmentBooked

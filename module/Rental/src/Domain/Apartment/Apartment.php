@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\Collection;
 use Rental\Domain\Address;
 use Doctrine\ORM\Mapping as ORM;
 use Rental\Domain\Booking\ApartmentBooking;
-use Rental\Domain\Period;
 
 /**
  * @ORM\Entity(repositoryClass="Rental\Infrastructure\Repository\ApartmentRepository")
